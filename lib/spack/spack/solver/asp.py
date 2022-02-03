@@ -2067,7 +2067,7 @@ class Solver(object):
 
     """
     def __init__(self):
-        self.set_default_coanfiguration()
+        self.set_default_configuration()
 
     def set_default_coanfiguration(self):
         # These properties are settable via spack configuration. `None`
