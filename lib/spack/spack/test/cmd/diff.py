@@ -35,12 +35,12 @@ def test_diff_cmd(install_mockery, mock_fetch, mock_archive, mock_packages):
     assert len(c['a_not_b']) == len(c['b_not_a'])
 
     # ensure that variant diffs are in here the result
-    assert ['variant_value', '0 mpileaks debug False'] in c['a_not_b']
-    assert ['variant_value', '0 mpileaks debug True'] in c['b_not_a']
+    assert ['variant_value', 'mpileaks debug False'] in c['a_not_b']
+    assert ['variant_value', 'mpileaks debug True'] in c['b_not_a']
 
     # ensure that hash diffs are in here the result
-    assert ['hash', '0 mpileaks %s' % specA.dag_hash()] in c['a_not_b']
-    assert ['hash', '0 mpileaks %s' % specB.dag_hash()] in c['b_not_a']
+    assert ['hash', 'mpileaks %s' % specA.dag_hash()] in c['a_not_b']
+    assert ['hash', 'mpileaks %s' % specB.dag_hash()] in c['b_not_a']
 
 
 def test_load_first(install_mockery, mock_fetch, mock_archive, mock_packages):
