@@ -649,7 +649,7 @@ target_weight(PSID, Target, Package, Weight)
   :- default_target_weight(Target, Weight),
      node(PSID, Package),
      not derive_target_from_parent(PSID, _, Package),
-     not package_target_weight(PSID, Target, Package, _).
+     not package_target_weight(Target, Package, _).
 
 % TODO: Need to account for the case of more than one parent
 % TODO: each of which sets different targets
@@ -659,7 +659,8 @@ target_weight(PSID, Target, Dependency, Weight)
      target_weight(PSID, Target, Package, Weight).
 
 target_weight(PSID, Target, Package, Weight)
-  :- package_target_weight(PSID, Target, Package, Weight).
+  :- node(PSID, Package),
+     package_target_weight(Target, Package, Weight).
 
 % can't use targets on node if the compiler for the node doesn't support them
 :- node_target(PSID, Package, Target),
@@ -681,7 +682,7 @@ node_target_weight(PSID, Package, Weight)
 
 derive_target_from_parent(PSID, Parent, Package)
   :- depends_on(PSID, Parent, Package),
-     not package_target_weight(PSID, _, Package, _).
+     not package_target_weight(_, Package, _).
 
 % compatibility rules for targets among nodes
 node_target_match(PSID, Parent, Dependency)
@@ -698,7 +699,7 @@ node_target_mismatch(PSID, Parent, Dependency)
    error("No satisfying package's target is compatible with this machine").
 
 #defined node_target_set/3.
-#defined package_target_weight/4.
+#defined package_target_weight/3.
 
 %-----------------------------------------------------------------------------
 % Compiler semantics
